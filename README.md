@@ -153,11 +153,13 @@ func GetEventManager() *EventManager
 
 **RegisterEvent**
 注册一个事件监听器。
+
 **参数：**
 * eventName (string): 事件名称。
 * callback (func(...any)): 回调函数。
 * filter (func(...any) bool): 过滤器函数，默认为 DefaultFilter。
 * once (bool): 是否只执行一次。
+
 **返回值：**
 * int: 事件ID。
 
@@ -167,6 +169,7 @@ func (slf *EventManager) RegisterEvent(eventName string, callback func(...any), 
 
 **RemoveEvent**
 移除一个事件监听器。
+
 **参数：**
 * eventName (string): 事件名称。
 * evtId (interface{}): 事件ID。
@@ -177,6 +180,7 @@ func (slf *EventManager) RemoveEvent(eventName string, evtId interface{})
 
 **TriggerEvent**
 触发一个事件。
+
 **参数：**
 * eventName (string): 事件名称。
 * evtId (int): 事件ID。
