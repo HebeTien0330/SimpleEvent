@@ -9,8 +9,6 @@
 
 import { Event, Params } from "./event";
 
-
-
 class EventManager {
 
     private static _instance: EventManager;
@@ -63,7 +61,7 @@ class EventManager {
         return this.listen(eventName, callback, filter);
     }
 
-    private cancel(eventName: string, evtId?: number): void {
+    private cancel(eventName: string, evtId: number): void {
         const events = this._eventMap.get(eventName);
         if (!events) {
             return;
@@ -78,7 +76,7 @@ class EventManager {
         }
     }
 
-    private cancelOnce(eventName: string, evtId?: number): void {
+    private cancelOnce(eventName: string, evtId: number): void {
         const events = this._onceEventMap.get(eventName);
         if (!events) {
             return;
@@ -119,7 +117,6 @@ class EventManager {
             for (const event of events) {
                 if (event.evtId === evtId) {
                     event.execute(args);
-                    events.splice(events.indexOf(event), 1);
                     return;
                 }
             }
