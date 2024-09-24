@@ -144,8 +144,8 @@ class EventManager {
             for (const event of events) {
                 event.execute(args);
             }
+            this._onceEventMap.delete(eventName);
         }
-        this._onceEventMap.delete(eventName);
     }
 
     public call(eventName: string, args: Params, evtId?: number): void {
