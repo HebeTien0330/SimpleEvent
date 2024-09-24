@@ -196,6 +196,61 @@ func (slf *EventManager) TriggerEvent(eventName string, evtId int, args ...any)
 * 如果没有指定事件ID，则会触发所有注册的事件监听器。
 * 通过 RegisterEvent 注册的事件监听器，必须通过 RemoveEvent 来取消注册以避免内存泄漏。
 
+---
+
+### Python版本
+
+#### 引入相关函数
+
+```python
+from EventSystem import Listen, ListenMulti, Cancel, OnEvent
+```
+
+#### 监听事件
+```python
+# 监听事件
+EvtId = Listen("UserLogin", callback_function, filter_function)
+
+# 一次性监听事件
+EvtId = Listen("UserLogin", callback_function, filter_function, Once=True)
+```
+
+#### 取消事件监听
+```python
+# 取消事件监听
+Cancel("UserLogin", EvtId)
+
+# 取消一次性事件监听
+Cancel("UserLogin", EvtId, True)
+
+# 取消所有事件监听
+Cancel("UserLogin")
+```
+
+#### 触发事件
+```python
+# 触发事件
+OnEvent("UserLogin", arg1, arg2)
+
+# 触发特定事件
+OnEvent("UserLogin", EvtId, arg1, arg2)
+```
+
+#### 监听多个事件
+```python
+# 监听多个事件
+EvtIds = ListenMulti([
+    ("UserLogin", callback_function, filter_function, False),
+    ("UserLogout", callback_function, filter_function, True)
+])
+```
+
+#### 注意事项
+
+* 确保在调用 Listen 或 ListenOnce 之前已经正确初始化了 EventManager。
+* 在调用 Cancel 时，需要提供正确的事件名称和事件 ID。
+* 如果没有提供事件 ID，则默认会执行所有监听该事件的回调函数。
+
 
 ## TODO
 使用其他语言实现
