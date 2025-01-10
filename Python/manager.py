@@ -28,6 +28,7 @@ class EventManager:
         CallbackList = self.m_EventMap.get(EventName, [])
         EvtId = self.m_Counter
         CallbackList.append(Event(EvtId, EventName, Callback, Filter))
+        self.m_EventMap[EventName] = CallbackList
         self.m_Counter += 1
         return EvtId
     
@@ -35,6 +36,7 @@ class EventManager:
         CallbackList = self.m_OnceEventMap.get(EventName, [])
         EvtId = self.m_Counter
         CallbackList.append(Event(EvtId, EventName, Callback, Filter))
+        self.m_OnceEventMap[EventName] = CallbackList
         self.m_Counter += 1
         return EvtId
     
