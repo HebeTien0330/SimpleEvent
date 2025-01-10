@@ -2,7 +2,7 @@
 :@Author: tangchengqin
 :@Date: 2024/9/24 10:08:32
 :@LastEditors: tangchengqin
-:@LastEditTime: 2024/9/24 10:08:32
+:@LastEditTime: 2025/1/10 18:05:01
 :Description: 
 :Copyright: Copyright (©)}) 2024 Clarify. All rights reserved.
 '''
@@ -11,14 +11,15 @@ from .event import Event
 
 class EventManager:
 
-    _instance = None
+    __isinstance = None
 
-    def __new__(cls):
-        if not cls._instance:
-            cls._instance = EventManager()
-        return cls._instance
+    def __new__(cls, *args, **kwargs):
+        if cls.__isinstance:
+            return cls.__isinstance
+        cls.__isinstance = object.__new__(cls)
+        return cls.__isinstance
     
-    def __init__(self, EventName, Callback, Filter=None):
+    def __init__(self):
         self.m_EventMap = {}
         self.m_OnceEventMap = {}
         self.m_Counter = 1
@@ -122,9 +123,10 @@ def Listen(EventName, Callback, Filter=None, Once=False):
     return EventManager().On(EventName, Callback, Filter, Once)
 
 def ListenMulti(EventList):
+    EvtManager = EventManager()
     Res = []
     for EventName, Callback, Filter, Once in EventList:
-        EvtId = Listen(EventName, Callback, Filter, Once)
+        EvtId = EvtManager.On(EventName, Callback, Filter, Once)
         Res.append(EvtId)
     return Res
 
